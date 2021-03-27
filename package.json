@@ -1,0 +1,9 @@
+{
+  "name": "com.tanatb.uitlr",
+  "version": "0.0.1",
+  "displayName": "Utilr",
+  "type": "tool",
+  "hideInEditor": false,
+  "dependencies": {},
+  "description": "All the util stuff everything can depend on"
+}
