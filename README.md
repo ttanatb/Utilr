@@ -10,7 +10,7 @@ I haven't tried on older versions.
 ## Installation
 Install via git url by adding this in your manifest.json
 ```
-"com.tanatb.dialogr": "https://github.com/ttanatb/Utilr.git#upm"
+"com.tanatb.utilr": "https://github.com/ttanatb/Utilr.git#upm"
 ```
 
 
