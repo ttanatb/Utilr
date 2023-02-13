@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 
 namespace Utilr.SoGameEvents
 {
-    public class SoOnTriggerFire : MonoBehaviour
+    public class StOnTriggerFire : MonoBehaviour
     {
         [SerializeField] private LayerMask m_mask = new LayerMask();
         [SerializeField] private SoGameEvent m_eventToFire = null;

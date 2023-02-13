@@ -4,5 +4,9 @@
   "displayName": "Utilr",
   "type": "tool",
   "hideInEditor": false,
-  "description": "All the util stuff everything can depend on"
+  "description": "All the util stuff everything can depend on",
+  "dependencies": {
+    "com.unity.cinemachine": "2.6.17",
+    "com.unity.render-pipelines.universal": "8.2.0"
+  }
 }

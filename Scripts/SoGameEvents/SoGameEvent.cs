@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace Utilr.SoGameEvents
 {
-    [CreateAssetMenu(fileName = "SoGameEvent", menuName = "soVars/sGameEvent", order = 1)]
+    [CreateAssetMenu(fileName = "SoGameEvent", menuName = "soVars/SoGameEvent", order = 1)]
     public class SoGameEvent : ScriptableObject
     {
         [field: SerializeField]
