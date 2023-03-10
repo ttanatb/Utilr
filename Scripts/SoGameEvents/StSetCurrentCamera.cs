@@ -9,7 +9,7 @@ namespace Utilr.SoGameEvents
         private SoCurrentCamera m_currentCamera = null;
         
         // Start is called before the first frame update
-        private void Start()
+        private void Awake()
         {
             TryGetComponent(out Camera cam);
             m_currentCamera.Cam = cam;

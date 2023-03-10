@@ -7,6 +7,7 @@
   "description": "All the util stuff everything can depend on",
   "dependencies": {
     "com.unity.cinemachine": "2.6.17",
-    "com.unity.render-pipelines.universal": "8.2.0"
+    "com.unity.render-pipelines.universal": "8.2.0",
+    "com.dbrizov.naughtyattributes": "2.0.8"
   }
 }

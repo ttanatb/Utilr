@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NaughtyAttributes;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Utilr.SoGameEvents
@@ -12,6 +13,7 @@ namespace Utilr.SoGameEvents
         /// <summary>
         /// Invoke this game event.
         /// </summary>
+        [Button()]
         public void Invoke()
         {
             Event.Invoke();
