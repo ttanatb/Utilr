@@ -2,7 +2,7 @@
 
 namespace Utilr.SoGameEvents
 {
-    [CreateAssetMenu(fileName = "SoCurrentCamera", menuName = "soVars/SoCurrentCamera", order = 1)]
+    [CreateAssetMenu(fileName = "SoCurrentCamera", menuName = "soEvents/SoCurrentCamera", order = 1)]
     public class SoCurrentCamera : ScriptableObject
     {
         [field: SerializeField]

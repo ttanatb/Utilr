@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace Utilr.SoGameEvents
 {
-    [CreateAssetMenu(fileName = "SoCamFocusEvent", menuName = "soVars/SoCamFocusEvent", order = 1)]
+    [CreateAssetMenu(fileName = "SoCamFocusEvent", menuName = "soEvents/SoCamFocusEvent", order = 1)]
     public class SoCamFocusEvent : ScriptableObject
     {
         [field: SerializeField]
