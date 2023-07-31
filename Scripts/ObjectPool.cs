@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Utilr
 {
@@ -14,6 +16,27 @@ namespace Utilr
             m_avail = new Dictionary<int, bool>(m_pool.Count);
             for (int i = 0; i < m_pool.Count; i++)
             {
+                m_avail.Add(i, true);
+            }
+        }
+
+        /// <summary>
+        /// Type of T should be a subclass of GameObject.
+        /// </summary>
+        /// <param name="prefab"></param>
+        /// <param name="count"></param>
+        public ObjectPool(GameObject prefab, int count)
+        {
+            Assert.IsTrue(typeof(T).IsSubclassOf( typeof(GameObject)));
+
+            m_pool = new List<T>(count);
+            m_avail = new Dictionary<int, bool>(count);
+            for (int i = 0; i < count; i++)
+            {
+                var gameObj = GameObject.Instantiate(prefab);
+                gameObj.name += $" ({i})";
+
+                m_pool.Add((T)(object)gameObj);
                 m_avail.Add(i, true);
             }
         }

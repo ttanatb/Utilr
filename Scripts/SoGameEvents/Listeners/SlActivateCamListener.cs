@@ -18,7 +18,7 @@ namespace Utilr.SoGameEvents
 
         protected override void OnEnable()
         {
-            m_action = () => {
+            m_connectiveAction = () => {
                 m_camera.Priority = ++m_currentPriority;
             };
             base.OnEnable();
