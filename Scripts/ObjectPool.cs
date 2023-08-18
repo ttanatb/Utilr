@@ -4,6 +4,10 @@ using UnityEngine.Assertions;
 
 namespace Utilr
 {
+    /// <summary>
+    /// Pool of Unity GameObjects, initializes a bunch of them in a disabled state.
+    /// </summary>
+    /// <typeparam name="T">Type can either be a MonoBehaviour or GameObject</typeparam>
     public class ObjectPool<T>
     {
         private List<T> m_pool;
@@ -25,18 +29,24 @@ namespace Utilr
         /// </summary>
         /// <param name="prefab"></param>
         /// <param name="count"></param>
-        public ObjectPool(GameObject prefab, int count)
+        /// <param name="parent"></param>
+        public ObjectPool(GameObject prefab, int count, Transform parent = null)
         {
-            Assert.IsTrue(typeof(T).IsSubclassOf( typeof(GameObject)));
+            Assert.IsTrue(typeof(T) == typeof(GameObject) 
+                || (typeof(T).IsSubclassOf(typeof(MonoBehaviour)) && prefab.TryGetComponent(out T _)),
+                "Type T must either be GameObject or a subclass of MonoBehaviour. If it's a MonoBehaviour, the" +
+                " prefab must have that script as a component.");
 
             m_pool = new List<T>(count);
             m_avail = new Dictionary<int, bool>(count);
             for (int i = 0; i < count; i++)
             {
-                var gameObj = GameObject.Instantiate(prefab);
+                var gameObj = GameObject.Instantiate(prefab, parent);
                 gameObj.name += $" ({i})";
-
-                m_pool.Add((T)(object)gameObj);
+                
+                if (typeof(T) == typeof(GameObject))
+                    m_pool.Add((T)(object)gameObj);
+                else m_pool.Add(gameObj.GetComponent<T>());
                 m_avail.Add(i, true);
             }
         }
