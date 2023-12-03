@@ -48,10 +48,11 @@ namespace Utilr.Attributes.Editor
 
         private static void ProcessAllAssets()
         {
-            if (Helper.GetAllAssetsOfType(typeof(ScriptableObject)) is not ScriptableObject[] allAssets) return;
-            
-            foreach (var asset in allAssets)
+            object[] allAssets = Helper.GetAllAssetsOfType(typeof(ScriptableObject));
+            foreach (object asset in allAssets)
             {
+                if (asset is not ScriptableObject) continue;
+                
                 // Processes all fields in each MonoBehaviour
                 var fields = asset.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
                 foreach (var field in fields)
