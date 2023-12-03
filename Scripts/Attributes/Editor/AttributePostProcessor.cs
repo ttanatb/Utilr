@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Utilr.Editor;
+using Object = System.Object;
 
 namespace Utilr.Attributes.Editor
 {
@@ -25,10 +26,11 @@ namespace Utilr.Attributes.Editor
                 !deletedAssets.ContainsTrackedExt(SO_EXT))
                 return;
 
-            ProcessAllObjects();
+            ProcessAllSceneObjs();
+            ProcessAllAssets();
         }
 
-        private static void ProcessAllObjects()
+        private static void ProcessAllSceneObjs()
         {
             // Processes all MonoBehaviours
             var allComponents = UnityEngine.Object.FindObjectsOfType<MonoBehaviour>();
@@ -43,7 +45,22 @@ namespace Utilr.Attributes.Editor
             }
         }
 
-        private static void ProcessField(FieldInfo field, MonoBehaviour component)
+        private static void ProcessAllAssets()
+        {
+            if (Helper.GetAllAssetsOfType(typeof(ScriptableObject)) is not ScriptableObject[] allAssets) return;
+            
+            foreach (var asset in allAssets)
+            {
+                // Processes all fields in each MonoBehaviour
+                var fields = asset.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+                foreach (var field in fields)
+                {
+                    ProcessField(field, asset);
+                }
+            }
+        }
+
+        private static void ProcessField(FieldInfo field, object obj)
         {
             if (Attribute.GetCustomAttribute(field, typeof(IncludeAllAssetsWithType))
                 is not IncludeAllAssetsWithType attribute) return;
@@ -60,11 +77,13 @@ namespace Utilr.Attributes.Editor
             // Sets every field with the SubscribeToNewEvents tag to include all of it.
             var newValue = Array.CreateInstance(elementType, foundAssets.Length);
             Array.Copy(foundAssets, newValue, foundAssets.Length);
-            field.SetValue(component, newValue);
+            field.SetValue(obj, newValue);
 
             // If set, invoke a function with a given name after assigning.
             if (string.IsNullOrEmpty(attribute.OnAssignedCb)) return;
-            component.Invoke(attribute.OnAssignedCb, 0);
+            var method = obj.GetType().GetMethod(attribute.OnAssignedCb);
+            Assert.IsNotNull(method);
+            method.Invoke(obj, null);
         }
     }
 }
