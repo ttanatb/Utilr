@@ -1,0 +1,16 @@
+{
+    "name": "Utilr.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0a492474b86e9304da8fd9e30677d3b7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -28,6 +28,7 @@ namespace Utilr.Attributes.Editor
 
             ProcessAllSceneObjs();
             ProcessAllAssets();
+            Debug.Log("test");
         }
 
         private static void ProcessAllSceneObjs()
