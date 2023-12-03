@@ -4,11 +4,11 @@ using Cinemachine;
 
 namespace Utilr.SoGameEvents
 {
-    [RequireComponent(typeof(CinemachineVirtualCamera))]
+    [RequireComponent(typeof(CinemachineVirtualCameraBase))]
     public class SlActivateCamListener : SlEventListener
     {
         private static int m_currentPriority = 10;
-        private CinemachineVirtualCamera m_camera = null;
+        private CinemachineVirtualCameraBase m_camera = null;
 
         private void Start()
         {
