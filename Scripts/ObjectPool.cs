@@ -33,7 +33,7 @@ namespace Utilr
         public ObjectPool(GameObject prefab, int count, Transform parent = null)
         {
             Assert.IsTrue(typeof(T) == typeof(GameObject) 
-                || (typeof(T).IsSubclassOf(typeof(MonoBehaviour)) && prefab.TryGetComponent(out T _)),
+                || (typeof(T).IsSubclassOf(typeof(Behaviour)) && prefab.TryGetComponent(out T _)),
                 "Type T must either be GameObject or a subclass of MonoBehaviour. If it's a MonoBehaviour, the" +
                 " prefab must have that script as a component.");
 
