@@ -41,7 +41,10 @@ namespace Utilr.Attributes.Editor
                 var fields = component.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
                 foreach (var field in fields)
                 {
-                    ProcessField(field, component);
+                    if (ProcessField(field, component))
+                    {
+                        EditorUtility.SetDirty(component.gameObject);
+                    }
                 }
             }
         }
@@ -62,10 +65,10 @@ namespace Utilr.Attributes.Editor
             }
         }
 
-        private static void ProcessField(FieldInfo field, object obj)
+        private static bool ProcessField(FieldInfo field, object obj)
         {
             if (Attribute.GetCustomAttribute(field, typeof(IncludeAllAssetsWithType))
-                is not IncludeAllAssetsWithType attribute) return;
+                is not IncludeAllAssetsWithType attribute) return false;
 
             Assert.IsTrue(field.FieldType.IsArray);
             Assert.IsTrue(field.FieldType.HasElementType);
@@ -82,10 +85,12 @@ namespace Utilr.Attributes.Editor
             field.SetValue(obj, newValue);
 
             // If set, invoke a function with a given name after assigning.
-            if (string.IsNullOrEmpty(attribute.OnAssignedCb)) return;
+            if (string.IsNullOrEmpty(attribute.OnAssignedCb)) return true;
             var method = obj.GetType().GetMethod(attribute.OnAssignedCb);
             Assert.IsNotNull(method);
             method.Invoke(obj, null);
+
+            return true;
         }
     }
 }
