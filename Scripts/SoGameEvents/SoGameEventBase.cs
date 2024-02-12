@@ -21,7 +21,7 @@ namespace Utilr.SoGameEvents
 
         protected virtual void Awake()
         {
-            DelayedInvoke();
+            // DelayedInvoke();
         }
         
         /// <summary>
@@ -30,8 +30,8 @@ namespace Utilr.SoGameEvents
         /// <param name="seconds"></param>
         private async void DelayedInvoke(int seconds = 1)
         {
-            await Task.Delay(seconds * 1000);
-            Invoke();
+            //await Task.Delay(seconds * 1000);
+            //Invoke();
         }
     }
 }
