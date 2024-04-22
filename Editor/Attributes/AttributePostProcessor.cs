@@ -82,7 +82,56 @@ namespace Utilr.Attributes.Editor
             // Sets every field with the SubscribeToNewEvents tag to include all of it.
             var newValue = Array.CreateInstance(elementType, foundAssets.Length);
             Array.Copy(foundAssets, newValue, foundAssets.Length);
-            field.SetValue(obj, newValue);
+
+            if (obj is UnityEngine.Object unityObj )
+            {
+                // Check if prefab
+                if (!PrefabUtility.IsPartOfPrefabInstance(unityObj))
+                    // Easy reflection if not prefab
+                    field.SetValue(unityObj, newValue);
+                else
+                {
+                    // Apply value through serialized object API instead
+                    
+                    var serializedGameObj = new SerializedObject(unityObj);
+                    var prop = serializedGameObj.FindProperty(field.Name);
+                    
+                    // Resize array to match
+                    if (prop.arraySize < newValue.Length)
+                    {
+                        for (int i = prop.arraySize; i < newValue.Length; i++)
+                        {
+                            prop.InsertArrayElementAtIndex(i);
+                        }
+                    }
+
+                    if (prop.arraySize > newValue.Length)
+                    {
+                        int countToDelete = prop.arraySize - newValue.Length;
+                        for (int i = 0; i < countToDelete; i++)
+                        {
+                            prop.DeleteArrayElementAtIndex(i);
+                        }
+                    }
+                    
+                    Assert.AreEqual(prop.arraySize, newValue.Length);
+
+                    for (int i = 0; i < prop.arraySize; i++)
+                    {
+                        var element = prop.GetArrayElementAtIndex(i);
+                        element.objectReferenceValue = newValue.GetValue(i) as UnityEngine.Object;
+                    }
+
+                    serializedGameObj.ApplyModifiedProperties();
+                }
+            }
+            else
+            {
+                
+                // Not prefab, can just set value easily
+                field.SetValue(obj, newValue);
+            }
+            
 
             // If set, invoke a function with a given name after assigning.
             if (string.IsNullOrEmpty(attribute.OnAssignedCb)) return true;
