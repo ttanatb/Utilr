@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -51,6 +52,11 @@ namespace Utilr
             }
         }
 
+        public int GetAvailCount()
+        {
+            return m_avail.Count(pair => pair.Value);
+        }
+
         public (T Obj, int Index) GetNextAvailable()
         {
             int index = m_nextAvailIndex;
@@ -82,7 +88,7 @@ namespace Utilr
         private int NextAvailIndex()
         {
             int currIndex = m_nextAvailIndex;
-            for (int i = 0; i < m_pool.Count; i++)
+            foreach (var _ in m_pool)
             {
                 currIndex++;
                 if (currIndex >= m_pool.Count)
