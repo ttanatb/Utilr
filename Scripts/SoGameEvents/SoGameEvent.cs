@@ -18,5 +18,15 @@ namespace Utilr.SoGameEvents
         {
             Event.Invoke();
         }
+        
+        public override void AddListener(UnityAction action)
+        {
+            Event.AddListener(action);
+        }
+        
+        public override void ClearListeners()
+        {
+            Event.RemoveAllListeners();
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Utilr.SoGameEvents
 {
@@ -31,5 +32,15 @@ namespace Utilr.SoGameEvents
                 evt.Invoke();
             }
         }
+        public override void AddListener(UnityAction action)
+        {
+            throw new System.NotImplementedException();
+        }
+        public override void ClearListeners()
+        {
+            throw new System.NotImplementedException();
+        }
+
+
     }
 }

@@ -1,7 +1,6 @@
-using System;
-using System.Threading.Tasks;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Utilr.SoGameEvents
 {
@@ -14,24 +13,12 @@ namespace Utilr.SoGameEvents
         public abstract void Invoke();
 
         /// <summary>
-        /// Event will auto-invoke on Start, definitely more useful for testing.
+        /// Add listener
         /// </summary>
-        [SerializeField]
-        private bool m_invokeOnStart = false;
+        /// <param name="action"></param>
+        public abstract void AddListener(UnityAction action);
 
-        protected virtual void Awake()
-        {
-            // DelayedInvoke();
-        }
-        
-        /// <summary>
-        /// Hack to invoke event after 1 second.
-        /// </summary>
-        /// <param name="seconds"></param>
-        private async void DelayedInvoke(int seconds = 1)
-        {
-            //await Task.Delay(seconds * 1000);
-            //Invoke();
-        }
+        [Button]
+        public abstract void ClearListeners();
     }
 }
