@@ -8,6 +8,10 @@ namespace Utilr.SoGameEvents
         [SerializeField] protected SoGameEvent m_eventToListenTo = null;
         [SerializeField] protected UnityEvent m_eventToFire = null;
 
+        public SoGameEvent EventToListenTo => m_eventToListenTo;
+
+        public UnityEvent EventToFire => m_eventToFire;
+
         // Connects the event to listen to with the event to fire next.
         protected UnityAction m_connectiveAction = null;
 
